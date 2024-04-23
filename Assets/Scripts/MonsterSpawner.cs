@@ -22,7 +22,7 @@ public class MonsterSpawner : MonoBehaviour
                 GameObject spawned = Instantiate(monster, position, Quaternion.identity, transform);
                 spawned.GetComponent<MonsterBehaviour>().player = player;
             }
-            yield return new WaitForSeconds(Random.Range(1.0f, 3.0f));
+            yield return new WaitForSeconds(Random.Range(3.0f, 8.0f));
         }
     }
 

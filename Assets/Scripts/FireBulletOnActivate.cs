@@ -23,6 +23,7 @@ public class FireBulletOnActivate : MonoBehaviour
         GameObject spawnedBullet = Instantiate(bullet);
         spawnedBullet.transform.position = spawnPoint.position;
         spawnedBullet.GetComponent<Rigidbody>().velocity = spawnPoint.forward * fireSpeed;
+        spawnedBullet.tag = "Bullet";
         AudioSource.PlayClipAtPoint(bulletAudio, Camera.main.transform.position, 0.5f);
         Destroy(spawnedBullet, 5);
     }

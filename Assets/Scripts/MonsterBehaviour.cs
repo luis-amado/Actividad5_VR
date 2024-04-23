@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MonsterBehaviour : MonoBehaviour
 {
@@ -16,13 +18,17 @@ public class MonsterBehaviour : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Bullet"))
 		{
-			dead = true;
+			StartCoroutine(Die());
 		}
 	}
 
 	IEnumerator Die()
 	{
 		dead = true;
+		GetComponents<AudioSource>().All(s => {
+			s.Stop();
+			return true;
+		});
 		rb.constraints = RigidbodyConstraints.None;
 		yield return new WaitForSeconds(3);
 		Destroy(gameObject);
@@ -35,6 +41,7 @@ public class MonsterBehaviour : MonoBehaviour
 		{
 			transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
 			transform.LookAt(player);
+			transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
 		}
 	}
 }
